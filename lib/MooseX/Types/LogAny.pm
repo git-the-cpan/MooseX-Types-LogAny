@@ -3,21 +3,28 @@ use 5.008;
 use strict;
 use warnings;
 
-our $VERSION = '0.001001'; # VERSION
+our $VERSION = '0.001002'; # VERSION
+
+BEGIN {
+	warnings::warnif('deprecated',
+		'see Log::Any documentation for how to use with Moose');
+}
 
 use MooseX::Types -declare => [qw(
 	LogAny
 	LogAnyBase
 	LogAnyNull
+	LogAnyProxy
 )];
 
-class_type LogAnyBase, { class => 'Log::Any::Adapter::Base' };
-class_type LogAnyNull, { class => 'Log::Any::Adapter::Null' };
-subtype    LogAny, as LogAnyBase|LogAnyNull;
+class_type LogAnyBase,  { class => 'Log::Any::Adapter::Base' };
+class_type LogAnyNull,  { class => 'Log::Any::Adapter::Null' };
+class_type LogAnyProxy, { class => 'Log::Any::Proxy' };
+subtype    LogAny, as LogAnyBase|LogAnyNull|LogAnyProxy;
 
 1;
 
-# ABSTRACT: Moose Types for Log::Any
+# ABSTRACT: DEPRECATED MooseX::Types for Log::Any
 
 __END__
 
@@ -25,11 +32,11 @@ __END__
 
 =head1 NAME
 
-MooseX::Types::LogAny - Moose Types for Log::Any
+MooseX::Types::LogAny - DEPRECATED MooseX::Types for Log::Any
 
 =head1 VERSION
 
-version 0.001001
+version 0.001002
 
 =head1 SYNOPSIS
 
@@ -45,6 +52,10 @@ version 0.001001
 	);
 
 =head1 DESCRIPTION
+
+This module is no longer recommended, the reason for its existence has been
+resolved in recent versions of L<Log::Any> see it's documentation for how to
+use L<Log::Any> with L<Moose>.
 
 The motivation behind this modules is that L<Log::Any::Adapter::Null> does not
 inherit from L<Log::Any::Adapter::Base> which all of the other adapters do.
@@ -65,6 +76,10 @@ Class L<Log::Any::Adapter::Null>
 =head2 LogAnyBase
 
 Class L<Log::Any::Adapter::Base>
+
+=head2 LogAnyProxy
+
+Class L<Log::Any::Proxy>
 
 =head1 SEE ALSO
 
@@ -97,7 +112,7 @@ Caleb Cushing <xenoterracide@gmail.com>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is Copyright (c) 2013 by Caleb Cushing.
+This software is Copyright (c) 2015 by Caleb Cushing.
 
 This is free software, licensed under:
 
