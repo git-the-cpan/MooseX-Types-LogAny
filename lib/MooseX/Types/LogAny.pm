@@ -3,7 +3,7 @@ use 5.008;
 use strict;
 use warnings;
 
-our $VERSION = '0.001002'; # VERSION
+our $VERSION = '0.001003'; # VERSION
 
 BEGIN {
 	warnings::warnif('deprecated',
@@ -36,7 +36,7 @@ MooseX::Types::LogAny - DEPRECATED MooseX::Types for Log::Any
 
 =head1 VERSION
 
-version 0.001002
+version 0.001003
 
 =head1 SYNOPSIS
 
